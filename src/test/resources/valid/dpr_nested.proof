@@ -1,0 +1,23 @@
+// Proof with a lot of levels
+
+Let p_0 be a proposition
+Let p_1 be a proposition
+Let p_2 be a proposition
+Let p_3 be a proposition
+Let p_4 be a proposition
+
+proof.
+    1.1. p_0                                                                                    [assumption]
+        1.2.1. p_1                                                                              [assumption]
+            1.2.2.1. p_2                                                                        [assumption]
+                1.2.2.2.1. p_3                                                                  [assumption]
+                    1.2.2.2.2.1. p_4                                                            [assumption]
+                    1.2.2.2.2.2. p_0 \land p_1                                                  [intro and: 1.1, 1.2.1]
+                    1.2.2.2.2.3. p_0 \land p_1 \land p_2                                        [intro and: 1.2.2.2.2.2, 1.2.2.1]
+                    1.2.2.2.2.4. p_0 \land p_1 \land p_2 \land p_3                              [intro and: 1.2.2.2.2.3, 1.2.2.2.1]
+                    1.2.2.2.2.5. p_0 \land p_1 \land p_2 \land p_3 \land p_4                    [intro and: 1.2.2.2.2.4, 1.2.2.2.2.1]
+                1.2.2.2.2. p_4 \to p_0 \land p_1 \land p_2 \land p_3 \land p_4                  [direct proof rule]
+            1.2.2.2. p_3 \to (p_4 \to p_0 \land p_1 \land p_2 \land p_3 \land p_4)              [direct proof rule]
+        1.2.2. p_2 \to (p_3 \to (p_4 \to p_0 \land p_1 \land p_2 \land p_3 \land p_4))          [direct proof rule]
+    1.2. p_1 \to (p_2 \to (p_3 \to (p_4 \to p_0 \land p_1 \land p_2 \land p_3 \land p_4)))      [direct proof rule]
+1. p_0 \to (p_1 \to (p_2 \to (p_3 \to (p_4 \to p_0 \land p_1 \land p_2 \land p_3 \land p_4))))  [direct proof rule]

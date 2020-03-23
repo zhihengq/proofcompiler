@@ -1,0 +1,9 @@
+let p be a proposition
+let q be a proposition
+given p
+given q
+
+proof.
+    1.  p           [Given]
+    2.  q           [Given]
+    3.  p \land q [Invalid Rule: 1, 2]

@@ -1,0 +1,9 @@
+let p be a proposition
+let q be a proposition
+given p
+given q
+
+proof.
+    1.  p           [Given]
+    2.  q           [Given]
+    7.  p \land q [Intro And: 1, 2]

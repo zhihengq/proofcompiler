@@ -1,0 +1,24 @@
+// CSE 311 17au hw3.1
+
+let p be a proposition
+let q be a proposition
+let r be a proposition
+let s be a proposition
+let t be a proposition
+
+Given (p ∨ r) → (q → s)
+Given t
+Given (r ∧ t) → ¬s
+
+proof.
+    1.  (p \lor r) \to (q \to s)            [ Given ]
+    2.  (p \lor r) \to (\neg s \to \neg q)  [ Contrapositive: 1 ]
+    3.  t                                   [ Given ]
+        4.1.    r                           [ Assumption ]
+        4.2.    p \lor r                    [ Intro \lor: 4.1 ]
+        4.3.    \neg s \to \neg q           [ Modus Ponens: 2, 4.2 ]
+        4.4.    r \land t                   [ Intro \land: 3, 4.1 ]
+        4.5.    (r \land t) \to \neg s      [ Given ]
+        4.6.    \neg s                      [ Modus Ponens: 4.5, 4.4 ]
+        4.7.    \neg q                      [ Modus Ponens: 4.3, 4.6 ]
+    4.  r \to \neg q                        [ Direct Proof Rule ]

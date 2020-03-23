@@ -1,0 +1,35 @@
+/* This is a comment */
+
+// There are $(line) comment(s)
+// comment // after // comment
+
+# This is also a comment
+#include <stdio.h>
+
+/**
+ * Javadoc
+ */
+
+let p be a proposition
+let q be a proposition
+given p
+given q
+
+proof.
+
+    // Everything over again in proof body mode
+    /* This is a comment */
+
+    // There are $(line) comment(s)
+    // comment // after // comment
+
+    # This is also a comment
+    #include <stdio.h>
+
+    /**
+     * Javadoc
+     */
+
+    1.  p           [Given]
+    2.  q           [Given]
+    3.  p \land q   [Intro And: 1, 2]

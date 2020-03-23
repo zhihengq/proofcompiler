@@ -1,0 +1,28 @@
+\begin{proof} \hfill\par
+    \begin{tabular}{rll}
+        \multicolumn{3}{l}{\quad \begin{tabular}{rll}
+            1.1. & \( p_0 \) & [ Assumption ] \\
+            \multicolumn{3}{l}{\quad \begin{tabular}{rll}
+                1.2.1. & \( p_1 \) & [ Assumption ] \\
+                \multicolumn{3}{l}{\quad \begin{tabular}{rll}
+                    1.2.2.1. & \( p_2 \) & [ Assumption ] \\
+                    \multicolumn{3}{l}{\quad \begin{tabular}{rll}
+                        1.2.2.2.1. & \( p_3 \) & [ Assumption ] \\
+                        \multicolumn{3}{l}{\quad \begin{tabular}{rll}
+                            1.2.2.2.2.1. & \( p_4 \) & [ Assumption ] \\
+                            1.2.2.2.2.2. & \( p_0 \land p_1 \) & [ Intro \(\land\): 1.1, 1.2.1 ] \\
+                            1.2.2.2.2.3. & \( p_0 \land p_1 \land p_2 \) & [ Intro \(\land\): 1.2.2.1, 1.2.2.2.2.2 ] \\
+                            1.2.2.2.2.4. & \( p_0 \land p_1 \land p_2 \land p_3 \) & [ Intro \(\land\): 1.2.2.2.1, 1.2.2.2.2.3 ] \\
+                            1.2.2.2.2.5. & \( p_0 \land p_1 \land p_2 \land p_3 \land p_4 \) & [ Intro \(\land\): 1.2.2.2.2.1, 1.2.2.2.2.4 ] \\
+                        \end{tabular} } \\
+                        1.2.2.2.2. & \( p_4 \to p_0 \land p_1 \land p_2 \land p_3 \land p_4 \) & [ Direct Proof Rule ] \\
+                    \end{tabular} } \\
+                    1.2.2.2. & \( p_3 \to (p_4 \to p_0 \land p_1 \land p_2 \land p_3 \land p_4) \) & [ Direct Proof Rule ] \\
+                \end{tabular} } \\
+                1.2.2. & \( p_2 \to (p_3 \to (p_4 \to p_0 \land p_1 \land p_2 \land p_3 \land p_4)) \) & [ Direct Proof Rule ] \\
+            \end{tabular} } \\
+            1.2. & \( p_1 \to (p_2 \to (p_3 \to (p_4 \to p_0 \land p_1 \land p_2 \land p_3 \land p_4))) \) & [ Direct Proof Rule ] \\
+        \end{tabular} } \\
+        1. & \( p_0 \to (p_1 \to (p_2 \to (p_3 \to (p_4 \to p_0 \land p_1 \land p_2 \land p_3 \land p_4)))) \) & [ Direct Proof Rule ] \\
+    \end{tabular} \par
+\end{proof}

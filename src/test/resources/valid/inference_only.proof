@@ -1,0 +1,24 @@
+// Adapted from CSE 311 17au hw3.1
+
+let p be a proposition
+let q be a proposition
+let r be a proposition
+let s be a proposition
+let t be a proposition
+
+given (p \lor r) \to (s \lor \neg q)
+given (r \land t) \to \neg s
+given t
+given r
+
+proof.
+
+1.  r                               [ Given ]
+2.  p \lor r                        [ Intro or: 1 ]
+3.  (p \lor r) \to (s \lor \neg q)  [ Given ]
+4.  s \lor \neg q                   [ Modus Ponens: 2, 3 ]
+5.  t                               [ Given ]
+6.  r \land t                       [ Intro and: 5, 1 ]
+7.  (r \land t) \to \neg s          [ Given ]
+8.  \neg s                          [ Modus Ponens: 7., 6 ]
+9.  \neg q                          [ Elim or: 8, 4. ]

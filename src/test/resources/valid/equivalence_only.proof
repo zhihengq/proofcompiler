@@ -1,0 +1,8 @@
+Let p be a proposition
+Let q be a proposition
+
+Given p \land T \land q
+
+proof.
+    1.  p \land T \land q   [Given]
+    2.  p \land q           [Identity: 1]

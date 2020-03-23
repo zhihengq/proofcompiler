@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'antlr'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    antlr "org.antlr:antlr4:4.8"
+    testImplementation 'junit:junit:4.12'
+}
+
+application {
+    mainClassName = 'proofcompiler.Main'
+}
+
+generateGrammarSource {
+    arguments += ['-package', 'proofcompiler.parser', '-Xexact-output-dir']
+}

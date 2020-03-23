@@ -1,0 +1,7 @@
+let p be a proposition
+given p
+
+proof.
+    1.  p           [Given]
+    2.  p \land T   [Identity: 1.]
+    3.  p \lor F    [Identity:  1]
