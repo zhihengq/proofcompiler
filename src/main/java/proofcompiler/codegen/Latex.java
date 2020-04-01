@@ -90,20 +90,20 @@ public class Latex implements Codegen {
         add(String.format("\\end{%s}", env));
     }
 
-    private String rule(Rule rule) {
+    public static String rule(Rule rule) {
         String ruleName = RULE.get(rule.name);
         if (ruleName == null)
             ruleName = capitalize(rule.name);
         return new Rule(ruleName, rule.refs).toString();
     }
 
-    private static String capitalize(String s) {
+    public static String capitalize(String s) {
         return String.join(" ", Stream.of(s.split(" "))
             .map(w -> w.substring(0, 1).toUpperCase() + w.substring(1))
             .collect(toUnmodifiableList()));
     }
 
-    private String prop(Proposition p) {
+    public static String prop(Proposition p) {
         class PropVisitor extends PropositionVisitor<String> {
             private String wrap(Operator parent, Proposition child) {
                 String format;
