@@ -29,13 +29,17 @@ public class LatexEquiv implements Codegen {
             else
                 add(String.format("& \\( \\equiv %s \\) & [ %s ] \\\\",
                             Latex.prop(line.proposition),
-                            Latex.capitalize(line.rule.name)));
+                            rule(line.rule)));
             brk();
         }
         end("tabular"); add("\\par"); brk();
         String result = sb.toString();
         sb = null;
         return result;
+    }
+
+    public static String rule(Rule r) {
+        return Latex.capitalize(r.name);
     }
 
     private void add(String s) {
