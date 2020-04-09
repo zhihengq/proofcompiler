@@ -20,19 +20,19 @@ public class LatexEquiv implements Codegen {
         sb = new StringBuilder();
         indentLevel = 0;
         newLine = true;
-        begin("tabular", "r@{\\hskip0.5\\tabcolsep}ll"); brk();
+        begin("align*", null); brk();
         for (Line line : lines) {
             assert !line.rule.name.equals(ASSUMPTION);
             assert !line.rule.name.equals(DPR);
             if (line.rule.name.equals(GIVEN))
-                add(String.format("\\( %s \\)", Latex.prop(line.proposition)));
+                add(String.format("%s", Latex.prop(line.proposition)));
             else
-                add(String.format("& \\( \\equiv %s \\) & [ %s ] \\\\",
+                add(String.format("&\\equiv %s && \\text{[ %s ]} \\\\",
                             Latex.prop(line.proposition),
                             rule(line.rule)));
             brk();
         }
-        end("tabular"); add("\\par"); brk();
+        end("align*"); brk();
         String result = sb.toString();
         sb = null;
         return result;
