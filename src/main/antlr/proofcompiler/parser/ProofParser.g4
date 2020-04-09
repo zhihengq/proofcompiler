@@ -12,9 +12,10 @@ parser grammar ProofParser;
 
 options { tokenVocab=ProofLexer; }
 
-proof returns [Proof value]
-    : decls START proofBody EOF ;
-
+root returns [Proof value]
+    : decls START proofBody EOF       # proof
+    | decls STARTEQUIV equivBody EOF  # equiv
+    ;
 
 decls returns [Declarations value]
     : (declLine? EOL)* ;
@@ -27,8 +28,14 @@ declLine returns [Declarations value]
 proofBody returns [List<Line> value]
     : (proofLine? EOL)* ;
 
+equivBody returns [List<Line> value]
+    : EOL* proposition (equivLine? EOL)* ;
+
 proofLine returns [Line value]
     : number proposition ruleRef ;
+
+equivLine returns [Line value]
+    : EQUIV proposition LBRACKET ruleName RBRACKET ;
 
 number returns [Number value]
     : POSINT (DOT POSINT)* DOT? ;

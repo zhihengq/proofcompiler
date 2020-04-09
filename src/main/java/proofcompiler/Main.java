@@ -11,6 +11,7 @@ import proofcompiler.ast.Declarations;
 import proofcompiler.graph.Step;
 import proofcompiler.codegen.Codegen;
 import proofcompiler.codegen.Latex;
+import proofcompiler.codegen.LatexEquiv;
 
 public class Main {
 
@@ -32,7 +33,8 @@ public class Main {
                 var proof = new ASTBuilder().parse(new FileInputStream(file));
                 Step conclusion = FormatChecker.check(proof);
                 var lines = new Optimizer().optimize(conclusion);
-                String latex = new Latex().generate(lines);
+                var codegen = proof.equivalence ? new LatexEquiv() : new Latex();
+                String latex = codegen.generate(lines);
                 var baseName = file.endsWith(".proof") ? file.substring(0, file.length() - ".proof".length()) : file;
                 var output = new FileOutputStream(baseName + ".tex");
                 output.write(String.format(LATEX_FORMAT, latex).getBytes());

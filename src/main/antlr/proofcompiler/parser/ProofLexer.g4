@@ -8,6 +8,7 @@ COMMENT_SINGLE : ('//' | '#') -> skip, pushMode(comment_singleline) ;
 COMMENT_MULTI  : '/*'         -> skip, pushMode(comment_multiline)  ;
 
 START : 'proof.' -> mode(proof_body) ;
+STARTEQUIV : 'equivalence.' -> mode(proof_body) ;
 
 GIVEN         : 'given' | 'Given' ;
 LET           : 'let'   | 'Let'   ;
@@ -25,6 +26,7 @@ OR      : '\\lor'        | '\\vee'   | '∨' ;
 XOR     : '\\oplus'                  | '⊕' ;
 IMPLIES : '\\rightarrow' | '\\to'    | '→' ;
 IFF     : '\\leftrightarrow'         | '↔' ;
+EQUIV   : '\\equiv'      | '='       | '≡' ;
 
 
 // Proof body
@@ -43,6 +45,7 @@ PB_OR             : OR             -> type(OR)                           ;
 PB_XOR            : XOR            -> type(XOR)                          ;
 PB_IMPLIES        : IMPLIES        -> type(IMPLIES)                      ;
 PB_IFF            : IFF            -> type(IFF)                          ;
+PB_EQUIV          : EQUIV          -> type(EQUIV)                        ;
 
 DOT      : '.' ;
 COMMA    : ',' ;

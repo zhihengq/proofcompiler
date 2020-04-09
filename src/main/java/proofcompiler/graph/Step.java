@@ -26,12 +26,14 @@ public abstract class Step implements Comparable<Step> {
     }
 
     public static final Map<String, StepConstructor> constructors;
+    public static final Map<String, StepConstructor> equivCtrs;
     public static final String GIVEN = "given";
     public static final String ASSUMPTION = "assumption";
     public static final String DPR = "direct proof rule";
 
     static {
         constructors = new HashMap<>();
+        equivCtrs = new HashMap<>();
 
         // Inference rules
         Proposition A = meta("A");
@@ -59,49 +61,49 @@ public abstract class Step implements Comparable<Step> {
         Proposition p = meta("p");
         Proposition q = meta("q");
         Proposition r = meta("r");
-        constructors.put("identity",        Equivalence.rule(List.of(
+        equivCtrs.put("identity",        Equivalence.rule(List.of(
                         Equivalence.equ(and(p, TRUE), p),
                         Equivalence.equ(or(p, FALSE), p)
                     )));
-        constructors.put("domination",      Equivalence.rule(List.of(
+        equivCtrs.put("domination",      Equivalence.rule(List.of(
                         Equivalence.equ(or(p, TRUE), TRUE),
                         Equivalence.equ(and(p, FALSE), FALSE)
                     )));
-        constructors.put("idempotency",     Equivalence.rule(List.of(
+        equivCtrs.put("idempotency",     Equivalence.rule(List.of(
                         Equivalence.equ( or(p, p), p),
                         Equivalence.equ(and(p, p), p)
                     )));
-        constructors.put("commutativity",   Equivalence.rule(List.of(
+        equivCtrs.put("commutativity",   Equivalence.rule(List.of(
                         Equivalence.equ( or(p, q),  or(q, p)),
                         Equivalence.equ(and(p, q), and(q, p))
                     )));
-        constructors.put("associativity",   Equivalence.rule(List.of(
+        equivCtrs.put("associativity",   Equivalence.rule(List.of(
                         Equivalence.equ( or( or(p, q), r),  or(p,  or(q, r))),
                         Equivalence.equ(and(and(p, q), r), and(p, and(q, r)))
                     )));
-        constructors.put("distributivity",  Equivalence.rule(List.of(
+        equivCtrs.put("distributivity",  Equivalence.rule(List.of(
                         Equivalence.equ(and(p,  or(q, r)),  or(and(p, q), and(p, r))),
                         Equivalence.equ( or(p, and(q, r)), and( or(p, q),  or(q, r)))
                     )));
-        constructors.put("absorption",      Equivalence.rule(List.of(
+        equivCtrs.put("absorption",      Equivalence.rule(List.of(
                         Equivalence.equ( or(p, and(p, q)), p),
                         Equivalence.equ(and(p,  or(p, q)), p)
                     )));
-        constructors.put("negation",        Equivalence.rule(List.of(
+        equivCtrs.put("negation",        Equivalence.rule(List.of(
                         Equivalence.equ( or(p, not(p)), TRUE),
                         Equivalence.equ(and(p, not(p)), FALSE)
                     )));
-        constructors.put("demorgan's law",  Equivalence.rule(List.of(
+        equivCtrs.put("demorgan's law",  Equivalence.rule(List.of(
                         Equivalence.equ(not( or(p, q)), and(not(p), not(q))),
                         Equivalence.equ(not(and(p, q)),  or(not(p), not(q)))
                     )));
-        constructors.put("double negation", Equivalence.rule(List.of(
+        equivCtrs.put("double negation", Equivalence.rule(List.of(
                         Equivalence.equ(not(not(p)), p)
                     )));
-        constructors.put("law of implication", Equivalence.rule(List.of(
+        equivCtrs.put("law of implication", Equivalence.rule(List.of(
                         Equivalence.equ(implies(p, q), or(not(p), q))
                     )));
-        constructors.put("contrapositive",  Equivalence.rule(List.of(
+        equivCtrs.put("contrapositive",  Equivalence.rule(List.of(
                         Equivalence.equ(implies(p, q), implies(not(q), not(p)))
                     )));
 
@@ -109,27 +111,29 @@ public abstract class Step implements Comparable<Step> {
         Proposition X = meta("X");
         Proposition Y = meta("Y");
         Proposition Z = meta("Z");
-        constructors.put("complementarity", constructors.get("negation"));
-        constructors.put("null",            constructors.get("domination"));
-        constructors.put("involution",      constructors.get("double negation"));
-        constructors.put("uniting",         Equivalence.rule(List.of(
+        equivCtrs.put("complementarity", equivCtrs.get("negation"));
+        equivCtrs.put("null",            equivCtrs.get("domination"));
+        equivCtrs.put("involution",      equivCtrs.get("double negation"));
+        equivCtrs.put("uniting",         Equivalence.rule(List.of(
                         Equivalence.equ( or(and(X, Y), and(X, not(Y))), X),
                         Equivalence.equ(and( or(X, Y),  or(X, not(Y))), X)
                     )));
-        constructors.put("absorption",      Equivalence.rule(List.of(
+        equivCtrs.put("absorption",      Equivalence.rule(List.of(
                         Equivalence.equ( or(X, and(X, Y)), X),
                         Equivalence.equ(and(X,  or(X, Y)), X),
                         Equivalence.equ(and( or(X, not(Y)), Y), and(X, Y)),
                         Equivalence.equ( or(and(X, not(Y)), Y),  or(X, Y))
                     )));
-        constructors.put("consensus",       Equivalence.rule(List.of(
+        equivCtrs.put("consensus",       Equivalence.rule(List.of(
                         Equivalence.equ( or( or(and(X, Y), and(Y, Z)), and(not(X), Z)),  or(and(X, Y), and(not(X), Z))),
                         Equivalence.equ(and(and( or(X, Y),  or(Y, Z)),  or(not(X), Z)), and( or(X, Y),  or(not(X), Z)))
                     )));
-        constructors.put("factoring",       Equivalence.rule(List.of(
+        equivCtrs.put("factoring",       Equivalence.rule(List.of(
                         Equivalence.equ(and( or(X, Y),  or(not(X), Z)),  or(and(X, Y), and(not(X), Z))),
                         Equivalence.equ( or(and(X, Y), and(not(X), Z)), and( or(X, Y),  or(not(X), Z)))
                     )));
+
+        constructors.putAll(equivCtrs);
     }
 
     public abstract class RuleCheckException extends Exception {

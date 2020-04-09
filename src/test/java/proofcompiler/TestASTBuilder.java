@@ -37,6 +37,7 @@ public class TestASTBuilder {
     public static Iterable<Object[]> data() {
         var tests = List.of(
                 valid("simple", new Proof(
+                        false,
                         new Declarations(
                             List.of("p", "q"),
                             List.of(
@@ -59,6 +60,7 @@ public class TestASTBuilder {
                         )
                     ),
                 valid("comments_heavy", new Proof(
+                        false,
                         new Declarations(
                             List.of("p", "q"),
                             List.of(
@@ -81,6 +83,7 @@ public class TestASTBuilder {
                         )
                     ),
                 valid("literal", new Proof(
+                        false,
                         new Declarations(
                             List.of("p"),
                             List.of(Proposition.atomic("p"))
@@ -107,6 +110,7 @@ public class TestASTBuilder {
                         )
                     ),
                 valid("dpr", new Proof(
+                        false,
                         new Declarations(
                             List.of("p", "q"),
                             List.of(

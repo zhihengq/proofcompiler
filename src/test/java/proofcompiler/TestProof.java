@@ -26,6 +26,7 @@ public class TestProof {
             "2. q [Given]\n" +
             "3. p∧q [Intro And: 1, 2]\n";
         Proof ast = new Proof(
+                false,
                 new Declarations(
                     List.of("p", "q"),
                     List.of(
@@ -53,6 +54,7 @@ public class TestProof {
             "1.2. q [Given]\n" +
             "1. p→q [Direct Proof Rule]\n";
         Proof ast = new Proof(
+                false,
                 new Declarations(
                     List.of("p", "q"),
                     List.of(

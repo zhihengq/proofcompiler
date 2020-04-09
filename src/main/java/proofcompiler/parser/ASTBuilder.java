@@ -3,10 +3,13 @@ package proofcompiler.parser;
 import java.io.InputStream;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 import static java.util.stream.Collectors.toUnmodifiableList;
+import static java.util.stream.Collectors.toUnmodifiableSet;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -21,6 +24,10 @@ import proofcompiler.ast.Line;
 import proofcompiler.ast.Number;
 import proofcompiler.ast.Rule;
 import proofcompiler.ast.logic.Proposition;
+import proofcompiler.ast.logic.PropositionVisitor;
+import proofcompiler.ast.logic.Atomic;
+import proofcompiler.ast.logic.UnaryOp;
+import proofcompiler.ast.logic.BinaryOp;
 
 public class ASTBuilder extends ProofParserBaseListener {
 
@@ -30,9 +37,9 @@ public class ASTBuilder extends ProofParserBaseListener {
         var tokens = new CommonTokenStream(lexer);
         var parser = new ProofParser(tokens);
         parser.setErrorHandler(new BailErrorStrategy());
-        ProofParser.ProofContext root;
+        ProofParser.RootContext root;
         try {
-            root = parser.proof();
+            root = parser.root();
             ParseTreeWalker.DEFAULT.walk(this, root);
         } catch (ParseCancellationException e) {
             throw new ParserException(e.getCause());
@@ -42,7 +49,15 @@ public class ASTBuilder extends ProofParserBaseListener {
 
     @Override
     public void exitProof(ProofParser.ProofContext ctx) {
-        ctx.value = new Proof(ctx.decls().value, ctx.proofBody().value);
+        ctx.value = new Proof(false, ctx.decls().value, ctx.proofBody().value);
+    }
+
+    @Override
+    public void exitEquiv(ProofParser.EquivContext ctx) {
+        var vars = ctx.decls().value.atomics();
+        var given = Collections.singleton(ctx.equivBody().proposition().value);
+        var body = ctx.equivBody().value;
+        ctx.value = new Proof(true, new Declarations(vars, given), body);
     }
 
     @Override
@@ -72,11 +87,30 @@ public class ASTBuilder extends ProofParserBaseListener {
     }
 
     @Override
+    public void exitEquivBody(ProofParser.EquivBodyContext ctx) {
+        int number = 1;
+        ctx.value = new ArrayList<>();
+        ctx.value.add(new Line(new Number(List.of(number)), ctx.proposition().value, new Rule("given", List.of())));
+        number++;
+        for (var ctxSub : ctx.equivLine()) {
+            var l = ctxSub.value;
+            ctx.value.add(new Line(new Number(List.of(number)), l.proposition, new Rule(l.rule.name, List.of(new Number(List.of(number - 1))))));
+            number++;
+        }
+        ctx.value = Collections.unmodifiableList(ctx.value);
+    }
+
+    @Override
     public void exitProofLine(ProofParser.ProofLineContext ctx) {
         ctx.value = new Line(
                 ctx.number().value,
                 ctx.proposition().value,
                 ctx.ruleRef().value);
+    }
+
+    @Override
+    public void exitEquivLine(ProofParser.EquivLineContext ctx) {
+        ctx.value = new Line(null, ctx.proposition().value, new Rule(ctx.ruleName().value, List.of()));
     }
 
     @Override
