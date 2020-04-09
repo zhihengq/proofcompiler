@@ -36,7 +36,9 @@ public class Latex implements Codegen {
             "intro and",                    "Intro \\(\\land\\)",
             "intro or",                     "Intro \\(\\lor\\)",
             "elim and",                     "Elim \\(\\land\\)",
-            "elim or",                      "Elim \\(\\lor\\)"
+            "elim or",                      "Elim \\(\\lor\\)",
+            "definition of xor",            "Definition of \\(\\oplus\\)",
+            "definition of biconditional",  "Definition of \\(\\leftrightarrow\\)"
             );
 
     @Override
@@ -90,16 +92,20 @@ public class Latex implements Codegen {
         add(String.format("\\end{%s}", env));
     }
 
-    public static String rule(Rule rule) {
+    public static String ruleName(Rule rule) {
         String ruleName = RULE.get(rule.name);
         if (ruleName == null)
             ruleName = capitalize(rule.name);
-        return new Rule(ruleName, rule.refs).toString();
+        return ruleName;
+    }
+
+    public static String rule(Rule rule) {
+        return new Rule(ruleName(rule), rule.refs).toString();
     }
 
     public static String capitalize(String s) {
         return String.join(" ", Stream.of(s.split(" "))
-            .map(w -> w.substring(0, 1).toUpperCase() + w.substring(1))
+            .map(w -> w.equals("of") ? w : (w.substring(0, 1).toUpperCase() + w.substring(1)))
             .collect(toUnmodifiableList()));
     }
 

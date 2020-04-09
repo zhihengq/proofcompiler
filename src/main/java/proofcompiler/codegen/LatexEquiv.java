@@ -39,7 +39,7 @@ public class LatexEquiv implements Codegen {
     }
 
     public static String rule(Rule r) {
-        return Latex.capitalize(r.name);
+        return Latex.ruleName(r);
     }
 
     private void add(String s) {

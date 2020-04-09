@@ -134,12 +134,17 @@ public class ASTBuilder extends ProofParserBaseListener {
                 .map(terminal -> terminal.getText())
                 .collect(toUnmodifiableList()));
         Map<String, String> operators = Map.of(
-            "\\land",   "and",
-            "\\wedge",  "and",
-            "∧",        "and",
-            "\\lor",    "or",
-            "\\vee",    "or",
-            "∨",        "or");
+            "\\land",           "and",
+            "\\wedge",          "and",
+            "∧",                "and",
+            "\\lor",            "or",
+            "\\vee",            "or",
+            "∨",                "or",
+            "\\oplus",          "xor",
+            "⊕",                "xor",
+            "\\leftrightarrow", "biconditional",
+            "↔",                "biconditional"
+            );
         if (ctx.operator() != null) {
             String op = ctx.operator().getText();
             ctx.value += " " + operators.getOrDefault(op, op);
