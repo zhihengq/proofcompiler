@@ -1,0 +1,8 @@
+Let p be a proposition
+Let p' be a proposition
+
+Given \neg (p \lor p')
+
+proof.
+	1. \neg (p \lor p')     [Given]
+	2. \neg p \land \neg p' [DeMorgan's Law: 1]

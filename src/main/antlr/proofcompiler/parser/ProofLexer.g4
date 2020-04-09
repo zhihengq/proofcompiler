@@ -16,7 +16,7 @@ BE            : 'be'              ;
 A             : 'a'               ;
 PROPOSITION   : 'proposition'     ;
 
-ID       : [a-zA-Z_] [a-zA-Z0-9_]* ;
+ID       : [a-zA-Z_'] [a-zA-Z0-9_']* ;
 LPAREN   : '(' ;
 RPAREN   : ')' ;
 
