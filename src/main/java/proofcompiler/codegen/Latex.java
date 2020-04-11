@@ -38,7 +38,8 @@ public class Latex implements Codegen {
             "elim and",                     "Elim \\(\\land\\)",
             "elim or",                      "Elim \\(\\lor\\)",
             "definition of xor",            "Definition of \\(\\oplus\\)",
-            "definition of biconditional",  "Definition of \\(\\leftrightarrow\\)"
+            "definition of biconditional",  "Definition of \\(\\leftrightarrow\\)",
+            "demorgan's law",               "DeMorgan's Law"
             );
 
     @Override
