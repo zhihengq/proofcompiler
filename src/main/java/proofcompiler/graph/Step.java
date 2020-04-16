@@ -96,7 +96,7 @@ public abstract class Step implements Comparable<Step> {
                     )));
         equivCtrs.put("distributivity",     Equivalence.rule(List.of(
                         Equivalence.equ(and(p,  or(q, r)),  or(and(p, q), and(p, r))),
-                        Equivalence.equ( or(p, and(q, r)), and( or(p, q),  or(q, r)))
+                        Equivalence.equ( or(p, and(q, r)), and( or(p, q),  or(p, r)))
                     )));
         equivCtrs.put("absorption",         Equivalence.rule(List.of(
                         Equivalence.equ( or(p, and(p, q)), p),
