@@ -1,14 +1,13 @@
 package proofcompiler;
 
 import org.junit.Test;
-import org.junit.Before;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+
+import static com.google.common.truth.Truth.assertThat;
 
 import java.io.InputStream;
 import java.io.FileNotFoundException;
@@ -163,7 +162,8 @@ public class TestASTBuilder {
         if (input == null)
             throw new FileNotFoundException(name);
         Proof actual = new ASTBuilder().parse(input);
+
         if (proof != null)
-            assertEquals(proof, actual);
+            assertThat(actual).isEqualTo(proof);
     }
 }

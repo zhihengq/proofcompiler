@@ -1,9 +1,8 @@
 package proofcompiler;
 
 import org.junit.Test;
-import org.junit.Before;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+
+import static com.google.common.truth.Truth.assertThat;
 
 import java.util.List;
 import proofcompiler.ast.Proof;
@@ -39,7 +38,8 @@ public class TestProof {
                             Proposition.atomic("p"),
                             Proposition.atomic("q")),
                         new Rule("Intro And", List.of(new Number(List.of(1)), new Number(List.of(2)))))));
-        assertEquals(expected, ast.toString());
+
+        assertThat(ast.toString()).isEqualTo(expected);
     }
 
     @Test
@@ -67,6 +67,7 @@ public class TestProof {
                             Proposition.atomic("p"),
                             Proposition.atomic("q")),
                         new Rule("Direct Proof Rule", List.of()))));
-        assertEquals(expected, ast.toString());
+
+        assertThat(ast.toString()).isEqualTo(expected);
     }
 }

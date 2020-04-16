@@ -1,18 +1,16 @@
 package proofcompiler;
 
 import org.junit.Test;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+
+import static com.google.common.truth.Truth.assertThat;
 
 import java.io.File;
-import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.stream.Stream;
@@ -59,6 +57,7 @@ public class TestIntegration {
         var lines = new Optimizer().optimize(conclusion);
         String latex = new Latex().generate(lines);
         var expected = new String(loader.getResourceAsStream(path + ".tex").readAllBytes());
-        assertEquals(expected, latex);
+
+        assertThat(latex).isEqualTo(expected);
     }
 }

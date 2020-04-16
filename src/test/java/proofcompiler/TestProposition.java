@@ -1,9 +1,8 @@
 package proofcompiler;
 
 import org.junit.Test;
-import org.junit.Before;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+
+import static com.google.common.truth.Truth.assertThat;
 
 import proofcompiler.ast.logic.Proposition;
 import proofcompiler.ast.logic.UnaryOp;
@@ -14,19 +13,22 @@ public class TestProposition {
     public void testAtomic() {
         Proposition p = Proposition.atomic("p");
         Proposition q = Proposition.atomic("q");
-        assertEquals(p, Proposition.atomic("p"));
-        assertEquals(q, Proposition.atomic("q"));
-        assertNotEquals(p, q);
-        assertEquals("p", p.toString());
-        assertEquals("q", q.toString());
+
+        assertThat(p).isEqualTo(Proposition.atomic("p"));
+        assertThat(q).isEqualTo(Proposition.atomic("q"));
+        assertThat(p).isNotEqualTo(q);
+
+        assertThat(p.toString()).isEqualTo("p");
+        assertThat(q.toString()).isEqualTo("q");
     }
 
     @Test
     public void testUnaryOp() {
         UnaryOp np = Proposition.not(Proposition.atomic("p"));
-        assertNotEquals(np, Proposition.atomic("p"));
-        assertEquals(np.arg, Proposition.atomic("p"));
-        assertEquals("¬p", np.toString());
+
+        assertThat(np).isNotEqualTo(Proposition.atomic("p"));
+        assertThat(np.arg).isEqualTo(Proposition.atomic("p"));
+        assertThat(np.toString()).isEqualTo("¬p");
     }
 
     @Test
@@ -35,49 +37,44 @@ public class TestProposition {
                 Proposition.atomic("p"),
                 Proposition.atomic("q")
             );
-        assertEquals(pq.lhs, Proposition.atomic("p"));
-        assertEquals(pq.rhs, Proposition.atomic("q"));
-        assertEquals(
-                "p∧q",
+
+        assertThat(pq.lhs).isEqualTo(Proposition.atomic("p"));
+        assertThat(pq.rhs).isEqualTo(Proposition.atomic("q"));
+        assertThat(
                 Proposition.and(
                     Proposition.atomic("p"),
                     Proposition.atomic("q")
                 ).toString()
-            );
-        assertEquals(
-                "p∨q",
+            ).isEqualTo("p∧q");
+        assertThat(
                 Proposition.or(
                     Proposition.atomic("p"),
                     Proposition.atomic("q")
                 ).toString()
-            );
-        assertEquals(
-                "p⊕q",
+            ).isEqualTo("p∨q");
+        assertThat(
                 Proposition.xor(
                     Proposition.atomic("p"),
                     Proposition.atomic("q")
                 ).toString()
-            );
-        assertEquals(
-                "p→q",
+            ).isEqualTo("p⊕q");
+        assertThat(
                 Proposition.implies(
                     Proposition.atomic("p"),
                     Proposition.atomic("q")
                 ).toString()
-            );
-        assertEquals(
-                "p↔q",
+            ).isEqualTo("p→q");
+        assertThat(
                 Proposition.biconditional(
                     Proposition.atomic("p"),
                     Proposition.atomic("q")
                 ).toString()
-            );
+            ).isEqualTo("p↔q");
     }
 
     @Test
     public void testComplex1() {
-        assertEquals(
-                "¬(p∧q)→¬p∨¬q",
+        assertThat(
                 Proposition.implies(
                     Proposition.not(Proposition.and(
                             Proposition.atomic("p"),
@@ -89,13 +86,12 @@ public class TestProposition {
                         Proposition.not(Proposition.atomic("q"))
                     )
                 ).toString()
-            );
+            ).isEqualTo("¬(p∧q)→¬p∨¬q");
     }
 
     @Test
     public void testComplex2() {
-        assertEquals(
-                "T→x∨F",
+        assertThat(
                 Proposition.implies(
                     Proposition.TRUE,
                     Proposition.or(
@@ -103,6 +99,6 @@ public class TestProposition {
                         Proposition.FALSE
                     )
                 ).toString()
-            );
+            ).isEqualTo("T→x∨F");
     }
 }
