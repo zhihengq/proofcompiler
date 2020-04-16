@@ -29,3 +29,13 @@ application {
 tasks.generateGrammarSource {
     arguments = listOf("-package", "proofcompiler.parser", "-Xexact-output-dir")
 }
+
+tasks.withType<Test> {
+    maxParallelForks = Runtime.getRuntime().availableProcessors()
+
+    testLogging {
+        events("passed", "failed", "skipped")
+        showStandardStreams = true
+        setExceptionFormat("full")
+    }
+}
