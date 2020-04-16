@@ -39,6 +39,7 @@ public abstract class Step implements Comparable<Step> {
         // Inference rules
         Proposition A = meta("A");
         Proposition B = meta("B");
+        Proposition C = meta("C");
         constructors.put("excluded middle", Inference.rule(
                     List.of(),
                     List.of(or(A, not(A)))));
@@ -57,6 +58,9 @@ public abstract class Step implements Comparable<Step> {
         constructors.put("elim or",         Inference.rule(
                     List.of(or(A, B), not(A)),
                     List.of(B)));
+        constructors.put("proof by cases",  Inference.rule(
+                    List.of(or(A, B), implies(A, C), implies(B, C)),
+                    List.of(C)));
 
         // Definitions
         Proposition p = meta("p");
