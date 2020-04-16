@@ -12,7 +12,7 @@ This is a Java project using Gradle.
 The following command should be enough.
 
 ```bash
-gradle build
+./gradlew build
 ```
 
 The packaged application should be in `build/distributions/ProofCompiler.{tar, zip}`.
@@ -113,7 +113,7 @@ Example:
 
 ```bash
 # This will generate output in src/test/resources/valid/17au-3-1.tex
-gradle run --args "src/test/resources/valid/17au-3-1.proof"
+./gradlew run --args "src/test/resources/valid/17au-3-1.proof"
 ```
 
 ## A complete example
