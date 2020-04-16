@@ -20,7 +20,7 @@ ID       : [a-zA-Z_'] [a-zA-Z0-9_']* ;
 LPAREN   : '(' ;
 RPAREN   : ')' ;
 
-NEG     : '\\neg'                    | '¬' ;
+NEG     : '\\neg'        | '\\lnot'  | '¬' ;
 AND     : '\\land'       | '\\wedge' | '∧' ;
 OR      : '\\lor'        | '\\vee'   | '∨' ;
 XOR     : '\\oplus'                  | '⊕' ;

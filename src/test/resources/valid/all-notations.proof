@@ -1,0 +1,15 @@
+Let p  be a proposition
+Let p' be a proposition
+
+equivalence.
+
+F \land p \to p'
+
+    // You can use LaTeX \equiv
+    \equiv p \land F \to p' [Commutativity]
+
+    /* You can use Unicode equivalence symbol */
+    ≡ F \to p' [Domination]
+
+    # Or you can use the philosophically incorrect but convenient equal sign
+    = \lnot F \lor p' [Law of Implication]
