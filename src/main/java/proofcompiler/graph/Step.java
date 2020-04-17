@@ -67,7 +67,8 @@ public abstract class Step implements Comparable<Step> {
         Proposition q = meta("q");
         Proposition r = meta("r");
         equivCtrs.put("definition of xor",  Equivalence.rule(List.of(
-                        Equivalence.equ(xor(p, q), or(and(p, not(q)), and(not(p), q)))
+                        Equivalence.equ(xor(p, q), or(and(p, not(q)), and(not(p), q))),
+                        Equivalence.equ(xor(p, q), and(or(p, q), or(not(p), not(q))))
                     )));
         equivCtrs.put("definition of biconditional",  Equivalence.rule(List.of(
                         Equivalence.equ(biconditional(p, q), and(implies(p, q), implies(q, p)))
