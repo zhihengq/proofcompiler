@@ -34,6 +34,7 @@ public interface Proposition {
 
     <T> T accept(PropositionVisitor<T> visitor);
 
+    // Non-operators are atomic and can be considered highest precedence
     default int precedence() { return 0; }
 
     public static Atomic atomic(String name) {

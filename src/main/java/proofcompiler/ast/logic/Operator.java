@@ -7,15 +7,16 @@ public abstract class Operator implements Proposition {
     protected static int PRECEDENCE_IMPLIES = 4;
     protected static int PRECEDENCE_IFF     = 5;
 
-    public boolean associative() { return true; }
+    public enum Associativity { LEFT, RIGHT, UNARY, NONE }
+    public abstract Associativity associativity();
 
-    protected String wrap(Proposition that) {
+    protected String wrap(Proposition that, Associativity position) {
         String format;
         if (this.precedence() < that.precedence())
             format = "(%s)";
         else if (this.precedence() > that.precedence())
             format = "%s";
-        else if (associative())
+        else if (associativity() == position)
             format = "%s";
         else
             format = "(%s)";

@@ -15,24 +15,30 @@ public class BinaryOp extends Operator {
         AND {
             @Override public String toString() { return "∧"; }
             @Override int precedence() { return PRECEDENCE_AND; }
+            @Override Associativity associativity() { return Associativity.LEFT; }
         },
         OR {
             @Override public String toString() { return "∨"; }
             @Override int precedence() { return PRECEDENCE_OR; }
+            @Override Associativity associativity() { return Associativity.LEFT; }
         },
         XOR {
             @Override public String toString() { return "⊕"; }
             @Override int precedence() { return PRECEDENCE_XOR; }
+            @Override Associativity associativity() { return Associativity.LEFT; }
         },
         IMPLIES {
             @Override public String toString() { return "→"; }
             @Override int precedence() { return PRECEDENCE_IMPLIES; }
+            @Override Associativity associativity() { return Associativity.NONE; }
         },
         BICONDITIONAL {
             @Override public String toString() { return "↔"; }
             @Override int precedence() { return PRECEDENCE_IFF; }
+            @Override Associativity associativity() { return Associativity.NONE; }
         };
         abstract int precedence();
+        abstract Associativity associativity();
     }
 
     public BinaryOp(Type type, Proposition lhs, Proposition rhs) {
@@ -47,14 +53,10 @@ public class BinaryOp extends Operator {
     }
 
     @Override
-    public int precedence() {
-        return type.precedence();
-    }
+    public int precedence() { return type.precedence(); }
 
     @Override
-    public boolean associative() {
-        return type != Type.IMPLIES && type != Type.BICONDITIONAL;
-    }
+    public Associativity associativity() { return type.associativity(); }
 
     @Override
     public boolean equals(Object o) {
@@ -73,6 +75,6 @@ public class BinaryOp extends Operator {
 
     @Override
     public String toString() {
-        return wrap(lhs) + type + wrap(rhs);
+        return wrap(lhs, Associativity.LEFT) + type + wrap(rhs, Associativity.RIGHT);
     }
 }

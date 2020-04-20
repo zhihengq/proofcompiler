@@ -26,6 +26,9 @@ public class UnaryOp extends Operator {
     }
 
     @Override
+    public Associativity associativity() { return Associativity.UNARY; }
+
+    @Override
     public boolean equals(Object o) {
         if (!(o instanceof UnaryOp))
             return false;
@@ -40,6 +43,6 @@ public class UnaryOp extends Operator {
 
     @Override
     public String toString() {
-        return type + wrap(arg);
+        return type + wrap(arg, Operator.Associativity.UNARY);
     }
 }

@@ -112,13 +112,13 @@ public class Latex implements Codegen {
 
     public static String prop(Proposition p) {
         class PropVisitor extends PropositionVisitor<String> {
-            private String wrap(Operator parent, Proposition child) {
+            private String wrap(Operator parent, Proposition child, Operator.Associativity position) {
                 String format;
                 if (parent.precedence() < child.precedence())
                     format = "(%s)";
                 else if (parent.precedence() > child.precedence())
                     format = "%s";
-                else if (parent.associative())
+                else if (parent.associativity() == position)
                     format = "%s";
                 else
                     format = "(%s)";
@@ -142,12 +142,15 @@ public class Latex implements Codegen {
 
             @Override
             public String visit(UnaryOp p) {
-                return String.format("%s %s", UNARY.get(p.type), wrap(p, p.arg));
+                return String.format("%s %s", UNARY.get(p.type), wrap(p, p.arg, Operator.Associativity.UNARY));
             }
 
             @Override
             public String visit(BinaryOp p) {
-                return String.format("%s %s %s", wrap(p, p.lhs), BINARY.get(p.type), wrap(p, p.rhs));
+                return String.format("%s %s %s",
+                        wrap(p, p.lhs, Operator.Associativity.LEFT),
+                        BINARY.get(p.type),
+                        wrap(p, p.rhs, Operator.Associativity.RIGHT));
             }
         }
         return new PropVisitor().visit(p);
